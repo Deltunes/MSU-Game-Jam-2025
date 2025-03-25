@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmjg08p4ly8fd"]
+
+[ext_resource type="Script" path="res://characterMover.gd" id="1_b8xr3"]
+[ext_resource type="Texture2D" uid="uid://dy1b0ds65o0tm" path="res://joe biden with a rat.png" id="2_20c1c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gfwk"]
+size = Vector2(315, 315)
+
+[node name="Level" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_b8xr3")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_20c1c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(2.5, 1.5)
+shape = SubResource("RectangleShape2D_1gfwk")
