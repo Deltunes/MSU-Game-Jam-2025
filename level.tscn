@@ -1,19 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmjg08p4ly8fd"]
+[gd_scene load_steps=5 format=3 uid="uid://dmjg08p4ly8fd"]
 
 [ext_resource type="Script" path="res://characterMover.gd" id="1_b8xr3"]
-[ext_resource type="Texture2D" uid="uid://dy1b0ds65o0tm" path="res://joe biden with a rat.png" id="2_20c1c"]
+[ext_resource type="Texture2D" uid="uid://ccld8oex3e6u3" path="res://character.png" id="2_tfn8j"]
+[ext_resource type="Texture2D" uid="uid://bfhfpg3ar0hqi" path="res://sword.png" id="3_qh1oj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gfwk"]
-size = Vector2(315, 315)
+[sub_resource type="CircleShape2D" id="CircleShape2D_4jdks"]
+radius = 132.004
 
 [node name="Level" type="Node2D"]
+position = Vector2(-16, -45)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(0, 1)
 script = ExtResource("1_b8xr3")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("2_20c1c")
+[node name="CharacterSprite" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+position = Vector2(0, -1)
+scale = Vector2(20, 20)
+texture = ExtResource("2_tfn8j")
+
+[node name="Sword" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(-187, 181)
+scale = Vector2(0.625, 0.577)
+texture = ExtResource("3_qh1oj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(2.5, 1.5)
-shape = SubResource("RectangleShape2D_1gfwk")
+position = Vector2(-6, 7)
+shape = SubResource("CircleShape2D_4jdks")
