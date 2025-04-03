@@ -6,8 +6,10 @@ func _physics_process(_delta):
 	velocity = direction * speed
 	
 	if (Input.is_action_just_pressed("leftClick")):
-		print("attack")
-		$AnimationPlayer.play("swordSwipe")
+		$WeaponAnimation.play("swordSwipe")
+		
+	if (Input.is_action_just_pressed("spaceBar")):
+		$PlayerAnimation.play("jump")
 	
 	if move_and_slide():
 		resolve_collisions()
