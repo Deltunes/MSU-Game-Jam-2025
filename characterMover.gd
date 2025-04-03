@@ -4,7 +4,11 @@ func _physics_process(_delta):
 	var direction = Input.get_vector("left", "right", "up", "down").normalized()
 	var speed = 250
 	velocity = direction * speed
-
+	
+	if (Input.is_action_just_pressed("leftClick")):
+		print("attack")
+		$AnimationPlayer.play("swordSwipe")
+	
 	if move_and_slide():
 		resolve_collisions()
 		

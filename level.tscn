@@ -1,13 +1,50 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmjg08p4ly8fd"]
+[gd_scene load_steps=10 format=3 uid="uid://dmjg08p4ly8fd"]
 
 [ext_resource type="Script" path="res://characterMover.gd" id="1_b8xr3"]
 [ext_resource type="Texture2D" uid="uid://ccld8oex3e6u3" path="res://character.png" id="2_tfn8j"]
-[ext_resource type="Texture2D" uid="uid://bfhfpg3ar0hqi" path="res://sword.png" id="3_qh1oj"]
 [ext_resource type="Script" path="res://Sword.gd" id="4_ii2xm"]
+[ext_resource type="Texture2D" uid="uid://ds0jkinmnjc2b" path="res://swordAnimVert.png" id="5_1ytgf"]
 [ext_resource type="Texture2D" uid="uid://cp2b7owjnyq51" path="res://stone.png" id="5_vjcvj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4jdks"]
 radius = 132.004
+
+[sub_resource type="Animation" id="Animation_rknqu"]
+resource_name = "swordSwipe"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword1:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.02962, 0.1, 0.2, 0.223682, 0.3, 0.4, 0.426937),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 3, 2, 1, 1, 0, 3, 3]
+}
+
+[sub_resource type="Animation" id="Animation_7c1vc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ty12"]
+_data = {
+"RESET": SubResource("Animation_7c1vc"),
+"swordSwipe": SubResource("Animation_rknqu")
+}
 
 [node name="Level" type="Node2D"]
 position = Vector2(-16, -45)
@@ -21,21 +58,26 @@ texture_filter = 1
 scale = Vector2(20, 20)
 texture = ExtResource("2_tfn8j")
 
-[node name="Sword" type="Sprite2D" parent="CharacterBody2D"]
-rotation = -4.18879
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_qh1oj")
-centered = false
-offset = Vector2(100, 100)
-flip_h = true
-script = ExtResource("4_ii2xm")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(-6, 7)
 shape = SubResource("CircleShape2D_4jdks")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 scale = Vector2(2, 2)
+
+[node name="Sword1" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(3, 3)
+texture = ExtResource("5_1ytgf")
+offset = Vector2(80, 40)
+vframes = 4
+frame = 3
+script = ExtResource("4_ii2xm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_2ty12")
+}
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
