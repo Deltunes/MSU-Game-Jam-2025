@@ -9,7 +9,7 @@ func _ready():
 		var instance = enemyScene.instantiate()
 		instance.position.x = i * 100
 		instance.position.y = -i * 100
-		instance.speed = i * 20
+		instance.speed = 50
 		add_child(instance)
 
 
