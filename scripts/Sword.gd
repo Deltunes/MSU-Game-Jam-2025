@@ -15,7 +15,7 @@ func rotateWeapon():
 	var mouseAng = mousePos.angle() / PI * 180
 	$".".rotation_degrees = mouseAng;
 	
-	if (mouseAng < -30 || mouseAng > 120):
-		$".".z_index = -1
-	elif (mouseAng >= -30 && mouseAng <= 120):
-		$".".z_index = 1
+	#if (mouseAng < -30 || mouseAng > 120):
+	#	$".".z_index = -1
+	#elif (mouseAng >= -30 && mouseAng <= 120):
+	#	$".".z_index = 1

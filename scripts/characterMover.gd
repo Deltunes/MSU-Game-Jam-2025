@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var inAir = false;
+var inAir = false
 
 func _physics_process(_delta):
 	# Player Movement
@@ -9,7 +9,7 @@ func _physics_process(_delta):
 	velocity = direction * speed
 	
 	# Weapon Attack
-	if (Input.is_action_just_pressed("leftClick")):
+	if (Input.is_action_pressed("leftClick") && !$WeaponAnimation.is_playing()):
 		$WeaponAnimation.play("swordSwipe")
 	
 	# Is Player in Air?

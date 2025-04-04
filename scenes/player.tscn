@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://shn281wsep5j"]
+[gd_scene load_steps=14 format=3 uid="uid://shn281wsep5j"]
 
 [ext_resource type="Script" path="res://scripts/characterMover.gd" id="1_u40if"]
 [ext_resource type="Texture2D" uid="uid://t40yy4dsqjfm" path="res://images/characterAnim.png" id="2_c1dx4"]
 [ext_resource type="Script" path="res://scripts/Sword.gd" id="3_8q348"]
 [ext_resource type="Texture2D" uid="uid://ccqg43q0nmwyg" path="res://images/swordAnim.png" id="4_07bb1"]
+[ext_resource type="PackedScene" uid="uid://cj1v27dsx1kpp" path="res://scenes/hitbox.tscn" id="5_65lwp"]
 [ext_resource type="Texture2D" uid="uid://duntc3x4bw84e" path="res://images/shadow.png" id="5_ipg7d"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj501"]
-size = Vector2(6.24789, 42.388)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hfh1x"]
+size = Vector2(34.8635, 246.026)
 
 [sub_resource type="Animation" id="Animation_7c1vc"]
 length = 0.001
@@ -58,6 +59,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterSprite/Weapon Controller/Sword/Hitbox:monitorable")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_aws26"]
@@ -130,6 +143,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [-1.309, -1.8326, -2.35619, -2.87979, -2.35619, -1.8326, -1.309]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite/Weapon Controller/Sword/Hitbox:monitorable")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ty12"]
 _data = {
@@ -140,10 +165,14 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj3io"]
-size = Vector2(240, 283.833)
+size = Vector2(240, 57.1665)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
 scale = Vector2(0.3, 0.3)
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_u40if")
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
@@ -152,10 +181,8 @@ scale = Vector2(10, 10)
 texture = ExtResource("2_c1dx4")
 hframes = 2
 
-[node name="Camera2D" type="Camera2D" parent="CharacterSprite"]
-scale = Vector2(0.2, 0.2)
-
 [node name="Weapon Controller" type="Node2D" parent="CharacterSprite"]
+y_sort_enabled = true
 scale = Vector2(0.1, 0.1)
 script = ExtResource("3_8q348")
 
@@ -163,18 +190,24 @@ script = ExtResource("3_8q348")
 texture_filter = 1
 position = Vector2(50, 0)
 rotation = -1.309
-scale = Vector2(5, 5)
+scale = Vector2(7.5, 7.5)
 texture = ExtResource("4_07bb1")
 centered = false
 offset = Vector2(-40, 0)
 hframes = 3
 
-[node name="Hitbox" type="Area2D" parent="CharacterSprite/Weapon Controller/Sword"]
-scale = Vector2(1.15, 1.15)
+[node name="Hitbox" parent="CharacterSprite/Weapon Controller/Sword" instance=ExtResource("5_65lwp")]
+scale = Vector2(0.2, 0.2)
+collision_layer = 8
+collision_mask = 4
+monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterSprite/Weapon Controller/Sword/Hitbox"]
-position = Vector2(-11.3705, 36.7041)
-shape = SubResource("RectangleShape2D_lj501")
+[node name="CollisionShape2D" parent="CharacterSprite/Weapon Controller/Sword/Hitbox" index="0"]
+position = Vector2(-65.989, 210.933)
+shape = SubResource("RectangleShape2D_hfh1x")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterSprite"]
+scale = Vector2(0.2, 0.2)
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 z_index = -1
@@ -194,6 +227,8 @@ libraries = {
 "": SubResource("AnimationLibrary_2ty12")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-12, 5.25)
+[node name="WallCollider" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 120)
 shape = SubResource("RectangleShape2D_pj3io")
+
+[editable path="CharacterSprite/Weapon Controller/Sword/Hitbox"]

@@ -1,32 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmjg08p4ly8fd"]
+[gd_scene load_steps=6 format=3 uid="uid://4y5y45nd7uuw"]
 
-[ext_resource type="Texture2D" uid="uid://cn50co70rprio" path="res://images/obstacle.png" id="2_jm6d6"]
-[ext_resource type="Texture2D" uid="uid://cp2b7owjnyq51" path="res://images/stone.png" id="3_6lnsc"]
-[ext_resource type="PackedScene" uid="uid://shn281wsep5j" path="res://scenes/player.tscn" id="3_one2d"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ek4ww"]
-radius = 46.0977
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_27o2w"]
+[ext_resource type="PackedScene" uid="uid://shn281wsep5j" path="res://scenes/player.tscn" id="1_l4ykr"]
+[ext_resource type="PackedScene" uid="uid://bk14fyoq5jkex" path="res://scenes/enemy.tscn" id="3_i73sn"]
+[ext_resource type="Texture2D" uid="uid://cp2b7owjnyq51" path="res://images/stone.png" id="3_xqwpe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mf60x"]
 size = Vector2(1911.98, 180.763)
 
 [node name="Level" type="Node2D"]
+y_sort_enabled = true
 position = Vector2(-16, -45)
+script = ExtResource("1_27o2w")
 
-[node name="Player" parent="." instance=ExtResource("3_one2d")]
+[node name="Player" parent="." instance=ExtResource("1_l4ykr")]
 
-[node name="Obstacle" type="RigidBody2D" parent="."]
-position = Vector2(300, 0)
-gravity_scale = 0.0
-linear_damp = 5.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle"]
-shape = SubResource("CircleShape2D_ek4ww")
-
-[node name="Sprite2D" type="Sprite2D" parent="Obstacle"]
-texture_filter = 1
-scale = Vector2(2, 2)
-texture = ExtResource("2_jm6d6")
+[node name="Enemy" parent="." instance=ExtResource("3_i73sn")]
+visible = false
+position = Vector2(160, 24)
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -38,7 +29,7 @@ rotation = -1.5708
 modulate = Color(0.333333, 0.333333, 0.333333, 1)
 z_index = -10
 scale = Vector2(0.563, 0.116)
-texture = ExtResource("3_6lnsc")
+texture = ExtResource("3_xqwpe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D2"]
 position = Vector2(-0.864983, 51.9658)
@@ -53,7 +44,7 @@ position = Vector2(0, -602)
 modulate = Color(0.333333, 0.333333, 0.333333, 1)
 z_index = -10
 scale = Vector2(1, 0.115741)
-texture = ExtResource("3_6lnsc")
+texture = ExtResource("3_xqwpe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D"]
 position = Vector2(-2, 50)
@@ -68,7 +59,7 @@ rotation = 1.5708
 modulate = Color(0.333333, 0.333333, 0.333333, 1)
 z_index = -10
 scale = Vector2(0.563, 0.116)
-texture = ExtResource("3_6lnsc")
+texture = ExtResource("3_xqwpe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D3"]
 position = Vector2(-0.864983, 51.9658)
@@ -84,7 +75,7 @@ rotation = 3.14159
 modulate = Color(0.333333, 0.333333, 0.333333, 1)
 z_index = -10
 scale = Vector2(1, 0.115741)
-texture = ExtResource("3_6lnsc")
+texture = ExtResource("3_xqwpe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/StaticBody2D4"]
 position = Vector2(-2, 50)
@@ -93,4 +84,9 @@ shape = SubResource("RectangleShape2D_mf60x")
 
 [node name="Floor" type="Sprite2D" parent="."]
 z_index = -10
-texture = ExtResource("3_6lnsc")
+texture = ExtResource("3_xqwpe")
+
+[editable path="Player"]
+[editable path="Player/CharacterSprite/Weapon Controller/Sword/Hitbox"]
+[editable path="Enemy"]
+[editable path="Enemy/Hurtbox"]
