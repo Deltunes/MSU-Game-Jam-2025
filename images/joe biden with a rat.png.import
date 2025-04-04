@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccld8oex3e6u3"
-path="res://.godot/imported/character.png-7a996d3b758d22c506b76a7c15391284.ctex"
+uid="uid://dy1b0ds65o0tm"
+path="res://.godot/imported/joe biden with a rat.png-858b3d961559eb7ecd3776ba6f84c281.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://character.png"
-dest_files=["res://.godot/imported/character.png-7a996d3b758d22c506b76a7c15391284.ctex"]
+source_file="res://images/joe biden with a rat.png"
+dest_files=["res://.godot/imported/joe biden with a rat.png-858b3d961559eb7ecd3776ba6f84c281.ctex"]
 
 [params]
 

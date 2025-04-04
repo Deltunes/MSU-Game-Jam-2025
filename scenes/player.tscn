@@ -1,0 +1,199 @@
+[gd_scene load_steps=13 format=3 uid="uid://shn281wsep5j"]
+
+[ext_resource type="Script" path="res://scripts/characterMover.gd" id="1_u40if"]
+[ext_resource type="Texture2D" uid="uid://t40yy4dsqjfm" path="res://images/characterAnim.png" id="2_c1dx4"]
+[ext_resource type="Script" path="res://scripts/Sword.gd" id="3_8q348"]
+[ext_resource type="Texture2D" uid="uid://ccqg43q0nmwyg" path="res://images/swordAnim.png" id="4_07bb1"]
+[ext_resource type="Texture2D" uid="uid://duntc3x4bw84e" path="res://images/shadow.png" id="5_ipg7d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lj501"]
+size = Vector2(6.24789, 42.388)
+
+[sub_resource type="Animation" id="Animation_7c1vc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite/Weapon Controller/Sword:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite/Weapon Controller/Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.309]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterSprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_aws26"]
+resource_name = "forwardWalk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_p4l77"]
+resource_name = "jump"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.601848, 1.56812),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -472.962), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rknqu"]
+resource_name = "swordSwipe"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite/Weapon Controller/Sword:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.239392, 0.337325, 0.789994, 0.894456),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 2, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite/Weapon Controller/Sword:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.252947, 0.333295, 0.794729, 0.80504, 0.81344, 0.8536),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.309, -1.8326, -2.35619, -2.87979, -2.35619, -1.8326, -1.309]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ty12"]
+_data = {
+"RESET": SubResource("Animation_7c1vc"),
+"forwardWalk": SubResource("Animation_aws26"),
+"jump": SubResource("Animation_p4l77"),
+"swordSwipe": SubResource("Animation_rknqu")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pj3io"]
+size = Vector2(240, 283.833)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_u40if")
+
+[node name="CharacterSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(10, 10)
+texture = ExtResource("2_c1dx4")
+hframes = 2
+
+[node name="Camera2D" type="Camera2D" parent="CharacterSprite"]
+scale = Vector2(0.2, 0.2)
+
+[node name="Weapon Controller" type="Node2D" parent="CharacterSprite"]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("3_8q348")
+
+[node name="Sword" type="Sprite2D" parent="CharacterSprite/Weapon Controller"]
+texture_filter = 1
+position = Vector2(50, 0)
+rotation = -1.309
+scale = Vector2(5, 5)
+texture = ExtResource("4_07bb1")
+centered = false
+offset = Vector2(-40, 0)
+hframes = 3
+
+[node name="Hitbox" type="Area2D" parent="CharacterSprite/Weapon Controller/Sword"]
+scale = Vector2(1.15, 1.15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterSprite/Weapon Controller/Sword/Hitbox"]
+position = Vector2(-11.3705, 36.7041)
+shape = SubResource("RectangleShape2D_lj501")
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 2)
+scale = Vector2(10, 10)
+texture = ExtResource("5_ipg7d")
+
+[node name="WeaponAnimation" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_2ty12")
+}
+
+[node name="PlayerAnimation" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_2ty12")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 5.25)
+shape = SubResource("RectangleShape2D_pj3io")
