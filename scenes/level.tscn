@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://4y5y45nd7uuw"]
+[gd_scene load_steps=5 format=3 uid="uid://4y5y45nd7uuw"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_27o2w"]
 [ext_resource type="PackedScene" uid="uid://shn281wsep5j" path="res://scenes/player.tscn" id="1_l4ykr"]
-[ext_resource type="PackedScene" uid="uid://bk14fyoq5jkex" path="res://scenes/enemy.tscn" id="3_i73sn"]
 [ext_resource type="Texture2D" uid="uid://cp2b7owjnyq51" path="res://images/stone.png" id="3_xqwpe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mf60x"]
@@ -14,10 +13,6 @@ position = Vector2(-16, -45)
 script = ExtResource("1_27o2w")
 
 [node name="Player" parent="." instance=ExtResource("1_l4ykr")]
-
-[node name="Enemy" parent="." instance=ExtResource("3_i73sn")]
-visible = false
-position = Vector2(160, 24)
 
 [node name="Walls" type="Node2D" parent="."]
 
@@ -88,5 +83,4 @@ texture = ExtResource("3_xqwpe")
 
 [editable path="Player"]
 [editable path="Player/CharacterSprite/Weapon Controller/Sword/Hitbox"]
-[editable path="Enemy"]
-[editable path="Enemy/Hurtbox"]
+[editable path="Player/Hurtbox"]

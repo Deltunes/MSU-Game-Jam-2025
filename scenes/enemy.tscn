@@ -1,31 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://bk14fyoq5jkex"]
+[gd_scene load_steps=12 format=3 uid="uid://bk14fyoq5jkex"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_1vrt4"]
-[ext_resource type="Texture2D" uid="uid://cjx2qd6kr5abx" path="res://images/obstacleAnim.png" id="2_p8hnf"]
+[ext_resource type="Texture2D" uid="uid://b2mkb32n4uk0t" path="res://images/obstacleAnim.png" id="2_p8hnf"]
 [ext_resource type="Texture2D" uid="uid://duntc3x4bw84e" path="res://images/shadow.png" id="3_5grjh"]
 [ext_resource type="PackedScene" uid="uid://cd3l21lxo6adu" path="res://scenes/hurtbox.tscn" id="4_go5ww"]
+[ext_resource type="PackedScene" uid="uid://cj1v27dsx1kpp" path="res://scenes/hitbox.tscn" id="5_phwbl"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dmn8"]
-size = Vector2(30.5, 16.125)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_02r2i"]
+radius = 14.2188
+height = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ehesp"]
 radius = 23.6326
 
-[sub_resource type="Animation" id="Animation_k0ekm"]
-resource_name = "hurt"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D2:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [1, 2, 1, 2, 0]
-}
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgily"]
+radius = 14.5
+height = 44.0
 
 [sub_resource type="Animation" id="Animation_dqxtu"]
 length = 0.001
@@ -42,6 +32,22 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_k0ekm"]
+resource_name = "hurt"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1, 2, 1, 2]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_flll6"]
 _data = {
 "RESET": SubResource("Animation_dqxtu"),
@@ -53,8 +59,13 @@ z_index = 1
 y_sort_enabled = true
 scale = Vector2(2, 2)
 collision_layer = 4
-collision_mask = 7
+collision_mask = 5
 script = ExtResource("1_1vrt4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_02r2i")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -69,10 +80,6 @@ position = Vector2(0, -30)
 scale = Vector2(2, 2)
 texture = ExtResource("3_5grjh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
-shape = SubResource("RectangleShape2D_6dmn8")
-
 [node name="Hurtbox" parent="." instance=ExtResource("4_go5ww")]
 collision_layer = 4
 collision_mask = 8
@@ -80,6 +87,13 @@ collision_mask = 8
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, -31)
 shape = SubResource("CircleShape2D_ehesp")
+
+[node name="Hitbox" parent="." instance=ExtResource("5_phwbl")]
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qgily")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -93,3 +107,4 @@ one_shot = true
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 
 [editable path="Hurtbox"]
+[editable path="Hitbox"]

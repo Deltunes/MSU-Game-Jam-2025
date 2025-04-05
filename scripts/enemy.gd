@@ -10,11 +10,13 @@ func _on_hurtbox_area_entered(hitbox):
 		var damage = hitbox.damage
 		self.health -= damage
 		$AnimationPlayer.play("hurt")
-		print("Enemy hit!")
 		$Timer.start()
 	
 func _physics_process(_delta):
 	if ($Timer.is_stopped()):
+		$AnimationPlayer.play("RESET")
+		if (health <= 0):
+			self.queue_free()
 		hitable = true
 		hitSpeed = 500
 		var direction = Vector2($"../Player".position.x - $".".position.x, $"../Player".position.y - $".".position.y).normalized()
@@ -23,9 +25,6 @@ func _physics_process(_delta):
 		hitable = false
 		var mousePos = $"../Player".get_local_mouse_position().normalized()
 		velocity = mousePos * hitSpeed
-		hitSpeed *= 0.9
-	
-	if (health <= 0):
-		self.queue_free()
-	
+		hitSpeed *= 0.95
+		
 	move_and_slide()
