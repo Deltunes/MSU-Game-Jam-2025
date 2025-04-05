@@ -24,7 +24,6 @@ func _physics_process(_delta):
 		$WeaponAnimation.play("swordSwipe")
 	
 	var mouseAng = $".".get_local_mouse_position().angle() / PI * 180
-	print(mouseAng)
 	
 	# Walking
 	if (mouseAng >= 45 && mouseAng <= 135 && !$PlayerAnimation.current_animation == "forwardWalk"):
@@ -39,6 +38,11 @@ func _physics_process(_delta):
 	elif ((mouseAng < -135 || mouseAng > 135) && !$PlayerAnimation.current_animation == "leftWalk"):
 		$PlayerAnimation.stop()
 		$PlayerAnimation.play("leftWalk")
+	
+	#if (Input.is_action_pressed("spaceBar")):
+	#	$"CharacterSprite/Weapon Controller/Sword".scale = Vector2(20, 20)
+	#elif ($"CharacterSprite/Weapon Controller/Sword".scale != Vector2(10, 10)):
+	#	$"CharacterSprite/Weapon Controller/Sword".scale = Vector2(10, 10)
 	
 	if move_and_slide():
 		resolve_collisions()

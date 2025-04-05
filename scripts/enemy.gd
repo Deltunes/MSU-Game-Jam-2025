@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 100
-var health = 100
+var health = 50
 var hitSpeed = 500
 var hitable = true
 

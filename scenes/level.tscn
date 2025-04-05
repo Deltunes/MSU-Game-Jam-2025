@@ -81,6 +81,9 @@ shape = SubResource("RectangleShape2D_mf60x")
 z_index = -10
 texture = ExtResource("3_xqwpe")
 
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [editable path="Player"]
 [editable path="Player/CharacterSprite/Weapon Controller/Sword/Hitbox"]
 [editable path="Player/Hurtbox"]

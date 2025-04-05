@@ -1,29 +1,40 @@
 extends Node2D
 
 var rng = RandomNumberGenerator.new()
+var enemyScene = preload("res://scenes/enemy.tscn")
+var enemyNumOnStart = 10
+var enemyNumGradual = 70
+var enemyScale
+var randomX
+var randomY
+var playerMarginX = 640
+var playerMarginY = 360
+var i = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var enemyScene = preload("res://scenes/enemy.tscn")
-	var enemyNum = 20
-	var enemyScale
-	var randomX
-	var randomY
-	var playerMargin = 300
-	for i in enemyNum:
-		var instance = enemyScene.instantiate()
-		
-		randomX = rng.randf_range(-500.0, 500.0)
-		randomY = rng.randf_range(-500.0, 500.0)
-		while ((randomX >= $Player.position.x - playerMargin && randomX <= $Player.position.x + playerMargin) && (randomY >= $Player.position.y - playerMargin && randomY <= $Player.position.y + playerMargin)):
-			randomX = rng.randf_range(-500.0, 500.0)
-			randomY = rng.randf_range(-500.0, 500.0)
-		
-		instance.position.x = randomX
-		instance.position.y = randomY
-		instance.speed = 50
-		add_child(instance)
-
-
+	for i in enemyNumOnStart:
+		instantiate_enemy()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	pass
+	if (i < enemyNumGradual):
+		if ($Timer.time_left <= 0):
+			instantiate_enemy()
+			$Timer.start()
+			i += 1
+		else:
+			pass
+			
+func instantiate_enemy():
+	var instance = enemyScene.instantiate()
+	var randomX = rng.randf_range(-800.0, 800.0)
+	var randomY = rng.randf_range(-500.0, 500.0)
+	while ((randomX >= $Player.position.x - playerMarginX && randomX <= $Player.position.x + playerMarginX) && (randomY >= $Player.position.y - playerMarginY && randomY <= $Player.position.y + playerMarginY)):
+		randomX = rng.randf_range(-800.0, 800.0)
+		randomY = rng.randf_range(-500.0, 500.0)
+			
+	instance.position.x = randomX
+	instance.position.y = randomY
+	instance.speed = 50
+			
+	add_child(instance)
