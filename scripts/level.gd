@@ -4,19 +4,18 @@ var rng = RandomNumberGenerator.new()
 var enemyScene = preload("res://scenes/enemy.tscn")
 var enemyNumOnStart = 10
 var enemyNumGradual = 70
-var enemyScale
-var randomX
-var randomY
 var playerMarginX = 640
 var playerMarginY = 360
-var i = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for i in enemyNumOnStart:
 		instantiate_enemy()
 	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	var i = 0
 	if (i < enemyNumGradual):
 		if ($Timer.time_left <= 0):
 			instantiate_enemy()

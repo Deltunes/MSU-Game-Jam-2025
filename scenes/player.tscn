@@ -258,7 +258,6 @@ texture = ExtResource("4_07bb1")
 centered = false
 offset = Vector2(-40, 0)
 hframes = 3
-script = ExtResource("1_u40if")
 
 [node name="Hitbox" parent="CharacterSprite/Weapon Controller/Sword" instance=ExtResource("5_65lwp")]
 scale = Vector2(0.2, 0.2)

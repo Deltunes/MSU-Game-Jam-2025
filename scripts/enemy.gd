@@ -1,30 +1,39 @@
 extends CharacterBody2D
 
-@export var speed = 100
-var health = 50
-var hitSpeed = 500
-var hitable = true
+@export var speed = 200
+@export var hitSpeed = 500
 
-func _on_hurtbox_area_entered(hitbox):
-	if (hitable == true):
-		var damage = hitbox.damage
-		self.health -= damage
-		$AnimationPlayer.play("hurt")
-		$Timer.start()
-	
+var direction = Vector2(0, 0)
+var otherHitSpeed
+var health = 50
+var hitable = true
+var player
+var mousePos
+
+func _ready():
+	player = $"../Player"
+	$Hitbox.damage = 10
+
 func _physics_process(_delta):
 	if ($Timer.is_stopped()):
-		$AnimationPlayer.play("RESET")
 		if (health <= 0):
 			self.queue_free()
 		hitable = true
-		hitSpeed = 500
-		var direction = Vector2($"../Player".position.x - $".".position.x, $"../Player".position.y - $".".position.y).normalized()
+		$AnimationPlayer.play("RESET")
+		direction = Vector2(player.position.x - $".".position.x, player.position.y - $".".position.y).normalized()
 		velocity = direction * speed
 	else:
 		hitable = false
-		var mousePos = $"../Player".get_local_mouse_position().normalized()
-		velocity = mousePos * hitSpeed
-		hitSpeed *= 0.95
+		velocity = direction * otherHitSpeed
+		otherHitSpeed *= 0.95
 		
 	move_and_slide()
+
+func _on_hurtbox_area_entered(hitbox):
+	if (hitable == true):
+		direction = player.get_local_mouse_position().normalized()
+		otherHitSpeed = player.hitSpeed 
+		var damage = hitbox.damage
+		self.health -= damage
+		$Timer.start()
+		$AnimationPlayer.play("hurt")

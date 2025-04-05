@@ -13,6 +13,7 @@ position = Vector2(-16, -45)
 script = ExtResource("1_27o2w")
 
 [node name="Player" parent="." instance=ExtResource("1_l4ykr")]
+hitSpeed = 500
 
 [node name="Walls" type="Node2D" parent="."]
 
