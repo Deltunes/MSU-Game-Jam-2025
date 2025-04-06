@@ -34,6 +34,6 @@ func instantiate_enemy():
 			
 	instance.position.x = randomX
 	instance.position.y = randomY
-	instance.speed = 50
+	instance.speed = 200
 			
 	add_child(instance)

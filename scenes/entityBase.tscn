@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://woj3vd415bqo"]
+
+[ext_resource type="Script" path="res://scenes/enemy.gd" id="1_tki4k"]
+[ext_resource type="Texture2D" uid="uid://duntc3x4bw84e" path="res://images/shadow.png" id="2_uwli0"]
+[ext_resource type="PackedScene" uid="uid://cd3l21lxo6adu" path="res://scenes/hurtbox.tscn" id="3_vtmg4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dmn8"]
+size = Vector2(30.5, 16.125)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_tki4k")
+speed = null
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="ShadowSprite" type="Sprite2D" parent="."]
+z_index = -1
+y_sort_enabled = true
+texture_filter = 1
+texture = ExtResource("2_uwli0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6dmn8")
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_vtmg4")]
+collision_layer = 0
+collision_mask = 0
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered" flags=18]
