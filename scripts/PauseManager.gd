@@ -11,3 +11,4 @@ func _ready():
 func _process(_delta):
 	if ($StartTimer.is_stopped()):
 		get_tree().paused = false
+
