@@ -96,6 +96,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [2, 3]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_aws26"]
 resource_name = "forwardWalk"
@@ -113,33 +125,17 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1]
 }
-
-[sub_resource type="Animation" id="Animation_p4l77"]
-resource_name = "jump"
-length = 1.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CharacterSprite:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.601848, 1.56812),
-"transitions": PackedFloat32Array(0.5, 2, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -472.962), Vector2(0, 0)]
-}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CharacterSprite:frame")
+tracks/1/path = NodePath("CharacterSprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_nj33w"]
@@ -158,6 +154,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [4, 5]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_isfk4"]
 resource_name = "rightWalk"
@@ -174,6 +182,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_rknqu"]
@@ -215,18 +235,35 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_qcp1t"]
+resource_name = "startFall"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.277393, 1),
+"update": 0,
+"values": [Vector2(0, -1200), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ty12"]
 _data = {
 "RESET": SubResource("Animation_7c1vc"),
 "backwardWalk": SubResource("Animation_gj30w"),
 "forwardWalk": SubResource("Animation_aws26"),
-"jump": SubResource("Animation_p4l77"),
 "leftWalk": SubResource("Animation_nj33w"),
 "rightWalk": SubResource("Animation_isfk4"),
+"startFall": SubResource("Animation_qcp1t"),
 "swordSwipe": SubResource("Animation_rknqu")
 }
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+process_mode = 1
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(0.3, 0.3)
@@ -269,8 +306,8 @@ monitorable = false
 position = Vector2(-65.989, 210.933)
 shape = SubResource("RectangleShape2D_hfh1x")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterSprite"]
-scale = Vector2(0.2, 0.2)
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(2, 2)
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 z_index = -1
@@ -291,12 +328,13 @@ libraries = {
 }
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="."]
+process_mode = 3
 speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_2ty12")
 }
 
-[node name="Timer" type="Timer" parent="."]
+[node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 

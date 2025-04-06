@@ -5,7 +5,7 @@ extends CharacterBody2D
 var hitable = true
 var direction = Vector2(0, 0)
 var speed = 100
-var health = 300
+var health = 100
 var otherHitSpeed
 
 func _ready():
@@ -14,7 +14,7 @@ func _ready():
 
 func _physics_process(_delta):
 	# Player Movement
-	if ($Timer.is_stopped()):
+	if ($HitTimer.is_stopped()):
 		hitable = true
 		direction = Input.get_vector("left", "right", "up", "down").normalized()
 		velocity = direction * speed
@@ -31,11 +31,6 @@ func _physics_process(_delta):
 	# Walking
 	walkingAnim()
 	
-	#if (Input.is_action_pressed("spaceBar")):
-	#	$"CharacterSprite/Weapon Controller/Sword".scale = Vector2(20, 20)
-	#elif ($"CharacterSprite/Weapon Controller/Sword".scale != Vector2(10, 10)):
-	#	$"CharacterSprite/Weapon Controller/Sword".scale = Vector2(10, 10)
-	
 	if move_and_slide():
 		resolve_collisions()
 	
@@ -48,11 +43,13 @@ func resolve_collisions():
 			
 func _on_hurtbox_area_entered(hitbox):
 	if (hitable == true):
-		direction = Vector2($".".position.x - hitbox.get_parent().position.x, $".".position.y - hitbox.get_parent().position.y).normalized()
-		otherHitSpeed = hitbox.get_parent().hitSpeed
 		var damage = hitbox.damage
 		self.health -= damage
-		$Timer.start()
+		if (health <= 0):
+			get_tree().reload_current_scene()
+		direction = Vector2($".".position.x - hitbox.get_parent().position.x, $".".position.y - hitbox.get_parent().position.y).normalized()
+		otherHitSpeed = hitbox.get_parent().hitSpeed
+		$HitTimer.start()
 		print("Hit! Health: ", self.health)
 
 func walkingAnim():
