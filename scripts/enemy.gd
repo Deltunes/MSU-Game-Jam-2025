@@ -11,7 +11,7 @@ var player
 var mousePos
 
 func _ready():
-	player = $"../Player"
+	player = $"../../Player"
 	$Hitbox.damage = 10
 
 func _physics_process(_delta):
