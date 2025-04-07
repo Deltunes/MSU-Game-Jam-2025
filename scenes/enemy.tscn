@@ -11,12 +11,12 @@ radius = 14.2188
 height = 44.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kurr4"]
-radius = 17.0
+radius = 23.2
 height = 53.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgily"]
 radius = 14.5
-height = 44.0
+height = 56.0001
 
 [sub_resource type="Animation" id="Animation_dqxtu"]
 length = 0.001
@@ -97,7 +97,7 @@ _data = {
 "walk": SubResource("Animation_wftta")
 }
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D"]
 z_index = 1
 y_sort_enabled = true
 scale = Vector2(2, 2)

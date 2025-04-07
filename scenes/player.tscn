@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://shn281wsep5j"]
+[gd_scene load_steps=21 format=3 uid="uid://shn281wsep5j"]
 
 [ext_resource type="Script" path="res://scripts/characterMover.gd" id="1_u40if"]
 [ext_resource type="Texture2D" uid="uid://t40yy4dsqjfm" path="res://images/characterAnim.png" id="2_c1dx4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cj1v27dsx1kpp" path="res://scenes/hitbox.tscn" id="5_65lwp"]
 [ext_resource type="Texture2D" uid="uid://duntc3x4bw84e" path="res://images/shadow.png" id="5_ipg7d"]
 [ext_resource type="PackedScene" uid="uid://cd3l21lxo6adu" path="res://scenes/hurtbox.tscn" id="7_oq02g"]
+[ext_resource type="AudioStream" uid="uid://bb84c0bdnp18c" path="res://Audio/slash.wav" id="8_ea0em"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pj3io"]
 size = Vector2(240, 57.1665)
@@ -109,6 +110,22 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_x0um2"]
+resource_name = "endRise"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(4, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -2000)]
+}
+
 [sub_resource type="Animation" id="Animation_aws26"]
 resource_name = "forwardWalk"
 length = 0.6
@@ -198,7 +215,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_qcp1t"]
 resource_name = "startFall"
-length = 2.5
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -206,8 +223,8 @@ tracks/0/path = NodePath("CharacterSprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.5),
-"transitions": PackedFloat32Array(0.277393, 1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.25, 1),
 "update": 0,
 "values": [Vector2(0, -2000), Vector2(0, 0)]
 }
@@ -255,6 +272,7 @@ tracks/2/keys = {
 _data = {
 "RESET": SubResource("Animation_7c1vc"),
 "backwardWalk": SubResource("Animation_gj30w"),
+"endRise": SubResource("Animation_x0um2"),
 "forwardWalk": SubResource("Animation_aws26"),
 "leftWalk": SubResource("Animation_nj33w"),
 "rightWalk": SubResource("Animation_isfk4"),
@@ -290,7 +308,7 @@ script = ExtResource("3_8q348")
 texture_filter = 1
 position = Vector2(50, 0)
 rotation = -1.309
-scale = Vector2(10, 10)
+scale = Vector2(8, 8)
 texture = ExtResource("4_07bb1")
 centered = false
 offset = Vector2(-40, 0)
@@ -333,6 +351,10 @@ speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_2ty12")
 }
+
+[node name="SwordSlashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ea0em")
+volume_db = -10.0
 
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.5

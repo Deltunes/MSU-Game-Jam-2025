@@ -1,18 +1,26 @@
 extends CharacterBody2D
 
 @export var hitSpeed = 500
+@export var goldKills: int
+@export var speed = 150
 
+var rng = RandomNumberGenerator.new()
 var hitable = true
 var direction = Vector2(0, 0)
-var speed = 100
-var health = 100
+var health = 300
 var otherHitSpeed
+var prevGoldKills
 
 func _ready():
 	var swordHitbox = $"CharacterSprite/Weapon Controller/Sword/Hitbox"
 	swordHitbox.damage = 10
+	goldKills = 0
+	prevGoldKills = 0
 
 func _physics_process(_delta):
+	if (goldKills == prevGoldKills + 1):
+		$"CharacterSprite/Weapon Controller/Sword".scale.x += 1
+		$"CharacterSprite/Weapon Controller/Sword".scale.y += 1
 	# Player Movement
 	if ($HitTimer.is_stopped()):
 		hitable = true
@@ -26,21 +34,18 @@ func _physics_process(_delta):
 
 	# Weapon Attack
 	if (Input.is_action_pressed("leftClick") && !$WeaponAnimation.is_playing()):
+		var randomPitch = rng.randf_range(0.8, 1.2)
+		$SwordSlashSound.pitch_scale = randomPitch
+		$SwordSlashSound.play()
 		$WeaponAnimation.play("swordSwipe")
 	
 	# Walking
 	walkingAnim()
 	
-	if move_and_slide():
-		resolve_collisions()
+	prevGoldKills = goldKills
 	
-func resolve_collisions():
-	for i in get_slide_collision_count():
-		var collision := get_slide_collision(i)
-		var body := collision.get_collider() as RigidBody2D
-		if body:
-			body.apply_force(-500 * collision.get_normal())
-			
+	move_and_slide()
+	
 func _on_hurtbox_area_entered(hitbox):
 	if (hitable == true):
 		var damage = hitbox.damage
