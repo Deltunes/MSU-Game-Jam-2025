@@ -19,7 +19,9 @@ func _physics_process(_delta):
 		if (health <= 0):
 			self.queue_free()
 		hitable = true
-		$AnimationPlayer.play("RESET")
+		if ($AnimationPlayer.current_animation != "walk"):
+			$AnimationPlayer.stop()
+			$AnimationPlayer.play("walk")
 		direction = Vector2(player.position.x - $".".position.x, player.position.y - $".".position.y).normalized()
 		velocity = direction * speed
 	else:
