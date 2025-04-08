@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cj1v27dsx1kpp" path="res://scenes/hitbox.tscn" id="5_phwbl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_02r2i"]
-radius = 14.2188
+radius = 13.9
 height = 44.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kurr4"]
@@ -15,7 +15,7 @@ radius = 23.2
 height = 53.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qgily"]
-radius = 14.5
+radius = 24.0
 height = 56.0001
 
 [sub_resource type="Animation" id="Animation_dqxtu"]

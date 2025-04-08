@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://bhvdv5edo6xc"]
+[gd_scene load_steps=22 format=3 uid="uid://bhvdv5edo6xc"]
 
 [ext_resource type="Script" path="res://scripts/levelMain.gd" id="1_c6s1f"]
 [ext_resource type="PackedScene" uid="uid://shn281wsep5j" path="res://scenes/player.tscn" id="1_t35e1"]
 [ext_resource type="Texture2D" uid="uid://cfoew8n5cwaw7" path="res://images/stoneMap.png" id="2_mj4q1"]
+[ext_resource type="Texture2D" uid="uid://cxxxgoiiq4u85" path="res://images/stoneMiniMap.png" id="3_3e8bn"]
 [ext_resource type="Texture2D" uid="uid://c3y83x40fyt4g" path="res://images/black.png" id="4_wv7lh"]
 [ext_resource type="Script" path="res://scenes/MusicPlayer.gd" id="4_yb4f7"]
 [ext_resource type="PackedScene" uid="uid://bk14fyoq5jkex" path="res://scenes/enemy.tscn" id="5_o8kex"]
@@ -44,14 +45,23 @@ script/source = "extends \"res://scripts/enemy.gd\"
 
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_skton"]
+size = Vector2(280, 426)
+
 [node name="Level" type="Node2D"]
 process_mode = 3
 script = ExtResource("1_c6s1f")
 
 [node name="Player" parent="." instance=ExtResource("1_t35e1")]
 
-[node name="ShadowSprite" parent="Player" index="3"]
+[node name="ShadowSprite" parent="Player" index="2"]
 texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+z_index = 13
+position = Vector2(1520, 836.667)
+scale = Vector2(4, 4)
+texture = ExtResource("3_3e8bn")
 
 [node name="Floor" type="Sprite2D" parent="."]
 process_mode = 1
@@ -197,6 +207,7 @@ process_mode = 1
 [node name="Boss" parent="Enemies" instance=ExtResource("5_o8kex")]
 position = Vector2(5447, -1778)
 scale = Vector2(10, 10)
+collision_mask = 21
 script = SubResource("GDScript_f3j6v")
 hitSpeed = 2000
 health = 200
@@ -205,9 +216,13 @@ hitDampener = -0.25
 [node name="Hurtbox" parent="Enemies/Boss" index="3"]
 position = Vector2(0, 5.53)
 
+[node name="CollisionShape2D" parent="Enemies/Boss/Hitbox" index="0"]
+position = Vector2(0.299988, -18.4)
+
 [node name="Boss2" parent="Enemies" instance=ExtResource("5_o8kex")]
 position = Vector2(4638, -2352)
 scale = Vector2(10, 10)
+collision_mask = 21
 hitSpeed = 2000
 health = 200
 hitDampener = -0.25
@@ -324,6 +339,15 @@ one_shot = true
 process_mode = 1
 position = Vector2(-2656, -2666)
 texture = ExtResource("7_jotqo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(3424, -1208)
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-61, -20)
+shape = SubResource("RectangleShape2D_skton")
 
 [editable path="Player"]
 [editable path="Player/CharacterSprite/Weapon Controller/Sword/Hitbox"]

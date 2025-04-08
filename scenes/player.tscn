@@ -324,9 +324,6 @@ monitorable = false
 position = Vector2(-65.989, 210.933)
 shape = SubResource("RectangleShape2D_hfh1x")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(2, 2)
-
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 z_index = -1
 position = Vector2(0, 2)
@@ -359,6 +356,8 @@ volume_db = -10.0
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 
